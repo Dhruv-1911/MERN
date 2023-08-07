@@ -1,5 +1,21 @@
+body{
+  margin: 0px;
+  padding: 0px;
+}
+
 main{
   padding: 1rem;
+}
+
+.headers{
+  background-color: #111;
+  padding: 1rem;
+}
+.headers a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: larger;
 }
 
 .products{
