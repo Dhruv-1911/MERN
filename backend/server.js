@@ -1,9 +1,11 @@
 import express from 'express';
-const app = express();
-// import data from './data';
+import data from './data.js';
+import cors from 'cors'
 
+const app = express();
+app.use(cors())
 app.get("/api/product" ,(req,res)=>{
-    res.json("hello")
+    res.json(data.product)
 })
 
 
