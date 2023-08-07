@@ -3,19 +3,12 @@ body{
   padding: 0px;
 }
 
-main{
-  padding: 1rem;
+.main{
+ min-height: 100vh;
 }
 
-.headers{
-  background-color: #111;
-  padding: 1rem;
-}
-.headers a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: larger;
+main{
+  flex:1
 }
 
 .products{

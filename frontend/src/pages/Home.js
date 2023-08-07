@@ -1,17 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios'
+import axios from 'axios';
+import { Row , Col} from 'react-bootstrap'
+import Product from '../Components/Product';
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'FETCH_REQUEST':
+      return { ...state, loading: true };
+    case 'FETCH_SUCCESS':
+      return { ...state, loading: false, products: action.payload };
+    case 'FETCH_FAIL':
+      return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
 
 const Home = () => {
-  const [ products , setProducts ] = useState([])
+  const [{ loading, products, error }, dispatch] = useReducer(reducer, {
+    products: [],
+    error: '',
+    loading: true,
+  });
+  // const [products, setProducts] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
+      dispatch({ type: 'FETCH_REQUEST' });
       try {
         const result = await axios.get('/api/product');
-        console.log('result: ', result);
-        setProducts(result.data);
+        dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (error) {
-        console.log(error);
+        dispatch({ type: 'FETCH_FAIL', payload: error.message });
       }
     };
     fetchData();
@@ -20,22 +40,19 @@ const Home = () => {
     <>
       <h1>Featured Product</h1>
       <div className="products">
-        {products.map((product) => (
-          <div className="product" key={product.slug}>
-            <Link to={`/product/${product.slug}`}>
-              <img src={product.image} alt={product.name} />
-            </Link>
-            <div className="productInfo">
-              <Link to={`/product/${product.slug}`}>
-                <h5>{product.name}</h5>
-              </Link>
-              <h5>
-                <b>${product.price}</b>
-              </h5>
-              <button>Add To Cart</button>
-            </div>
-          </div>
-        ))}
+        {loading ? (
+          <div>Loading....</div>
+        ) : error ? (
+          <div>{error}</div>
+        ) : (
+          <Row>
+          {products?.map((product) => (
+            <Col sm={6} md={4} lg={3} className='mb-3'>
+                <Product product={product}></Product>
+            </Col>
+          ))}
+          </Row>
+        )}
       </div>
     </>
   );
