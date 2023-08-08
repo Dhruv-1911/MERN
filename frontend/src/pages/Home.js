@@ -1,7 +1,8 @@
 import React, { useEffect, useReducer } from 'react';
 import axios from 'axios';
-import { Row , Col} from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap';
 import Product from '../Components/Product';
+import { Helmet } from 'react-helmet-async';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -37,6 +38,9 @@ const Home = () => {
   }, []);
   return (
     <>
+      <Helmet>
+        <title>Store</title>
+      </Helmet>
       <h1>Featured Product</h1>
       <div className="products">
         {loading ? (
@@ -45,11 +49,11 @@ const Home = () => {
           <div>{error}</div>
         ) : (
           <Row>
-          {products?.map((product) => (
-            <Col key={product.slug} sm={6} md={4} lg={3} className='mb-3'>
+            {products?.map((product) => (
+              <Col key={product.slug} sm={6} md={4} lg={3} className="mb-3">
                 <Product product={product}></Product>
-            </Col>
-          ))}
+              </Col>
+            ))}
           </Row>
         )}
       </div>

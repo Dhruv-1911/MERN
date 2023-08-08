@@ -15,7 +15,8 @@ const Product = ({product}) => {
         </Link>
         <Card.Text className='m-0'>${product.price}</Card.Text>
         <Rating rating={product.rating} numReview={product.numReviews}></Rating>
-        <Button className='mt-2 button'>Add to Cart</Button>
+        {product.countInStock >0 ? <Button  variant="warning" className='mt-2'>Add to Cart</Button> : <div className='mt-2 p-2' variant='light'>Out Of Stock</div> }
+        
       </Card.Body>
     </Card>
   );

@@ -10,6 +10,9 @@ body{
 main{
   flex:1
 }
+.image-smaller{
+  width: 40%;
+}
 
 .products{
   display: flex;
