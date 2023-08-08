@@ -15,7 +15,7 @@ app.get("/api/product/slug/:slug" ,(req,res)=>{
     res.json(product)
     }
     else{
-        res.status(404).send("Not Found")
+        res.status(404).send({message : "Not Found Product"})
     }
 })
 
