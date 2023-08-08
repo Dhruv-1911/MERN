@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useContext, useEffect, useReducer } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Row, Col, ListGroup, Card, Badge, Button } from 'react-bootstrap';
@@ -7,6 +7,7 @@ import { Helmet } from 'react-helmet-async';
 import Loadingbox from '../Components/Loadingbox';
 import MessageBox from '../Components/MessageBox';
 import utils from '../utils';
+import { Store } from '../Store';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -40,12 +41,20 @@ const Product = () => {
     };
     fetchData();
   }, [slug]);
+
+  const { state , dispatch: newDispatch } = useContext(Store);
+  const handelCart = (e) => {
+    newDispatch({
+      type: 'CART_ADD_ITEM',
+      payload: { ...product, quantity: 1 },
+    });
+  };
   return (
     <>
       {loading ? (
         <Loadingbox />
       ) : error ? (
-        <MessageBox variant='danger'> {error}</MessageBox>
+        <MessageBox variant="danger"> {error}</MessageBox>
       ) : (
         <div>
           <Row>
@@ -79,7 +88,10 @@ const Product = () => {
                   />
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  Description: <p><b>{product.description}</b></p>
+                  Description:{' '}
+                  <p>
+                    <b>{product.description}</b>
+                  </p>
                 </ListGroup.Item>
               </ListGroup>
             </Col>
@@ -108,7 +120,9 @@ const Product = () => {
                     {product.countInStock > 0 ? (
                       <ListGroup.Item>
                         <div className="d-grid">
-                          <Button variant="warning">ADD TO CART</Button>
+                          <Button onClick={handelCart} variant="warning">
+                            ADD TO CART
+                          </Button>
                         </div>
                       </ListGroup.Item>
                     ) : (
