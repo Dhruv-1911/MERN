@@ -1,5 +1,4 @@
 import React, { useEffect, useReducer } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Row , Col} from 'react-bootstrap'
 import Product from '../Components/Product';
@@ -47,7 +46,7 @@ const Home = () => {
         ) : (
           <Row>
           {products?.map((product) => (
-            <Col sm={6} md={4} lg={3} className='mb-3'>
+            <Col key={product.slug} sm={6} md={4} lg={3} className='mb-3'>
                 <Product product={product}></Product>
             </Col>
           ))}

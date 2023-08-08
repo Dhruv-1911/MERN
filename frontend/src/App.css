@@ -19,7 +19,13 @@ main{
 .product{
   margin: 10px;
 }
-
+.icons{
+  color:#ffc000;
+}
+.button{
+  background-color: #ffc000;
+  color: #111;
+}
 .product img{
   width: 100%;
   max-width: 400px;

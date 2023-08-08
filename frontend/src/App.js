@@ -1,5 +1,5 @@
 import './App.css';
-import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Product from './pages/Product';
 import {Navbar ,Container} from "react-bootstrap";
@@ -26,9 +26,9 @@ function App() {
           </Routes>
           </Container>
         </main>
-        <fotter>
-          <div className='text-center'>© 2023 Copyright:dhruvkakadiya🙂 </div>
-        </fotter>
+        <footer>
+          <div className='text-center'>© 2023 Copyright:dhruvkakadiya🙂</div>
+        </footer>
       </div>
     </Router>
   );
