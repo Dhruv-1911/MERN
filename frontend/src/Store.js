@@ -10,13 +10,14 @@ const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case 'CART_ADD_ITEM':
-      return {
-        ...state,
-        cart: {
-          ...state.cart,
-          CartItems: [...state.cart.CartItems, action.payload],
-        },
-      };
+      const newItem = action.payload;
+      const exists = state.cart.CartItems.find((x) => x._id === newItem._id);
+      const CartItems = exists
+        ? state.cart.CartItems.map((item) =>
+            item._id === exists._id ? newItem : item
+          )
+        : [...state.cart.CartItems, newItem];
+      return { ...state, cart: { ...state.cart, CartItems } };
     default:
       return state;
   }

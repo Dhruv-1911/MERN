@@ -42,11 +42,21 @@ const Product = () => {
     fetchData();
   }, [slug]);
 
-  const { state , dispatch: newDispatch } = useContext(Store);
-  const handelCart = (e) => {
+  const { state, dispatch: newDispatch } = useContext(Store);
+  const { cart } = state;
+  const handelCart = async () => {
+    const exists = cart.CartItems.find((x) => x._id === product._id);
+
+    const quantity = exists ? exists.quantity += 1 : 1;
+
+    const { data } = await axios.get(`/api/product/${product._id}`);
+    if(data.countInStock < quantity){ 
+      window.alert("Sorry, This Product is out of stock")
+      return;
+    }
     newDispatch({
       type: 'CART_ADD_ITEM',
-      payload: { ...product, quantity: 1 },
+      payload: { ...product, quantity },
     });
   };
   return (
