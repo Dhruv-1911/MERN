@@ -1,16 +1,46 @@
 import React, { useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
+import axios from 'axios';
 import { Store } from '../Store';
 import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
 import MessageBox from '../Components/MessageBox';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Cart = () => {
-  const { state, dispatch } = useContext(Store);
+  let total = 0;
+  const navigate = useNavigate();
+  const { state, dispatch: newDispatch } = useContext(Store);
   const {
     cart: { CartItems },
   } = state;
-  console.log('CartItems: ', CartItems);
+  const countfun = async (item, quantity) => {
+    const { data } = await axios.get(`/api/product/${item._id}`);
+    if (data.countInStock < quantity) {
+      window.alert('Sorry, This Product is out of stock');
+      return;
+    }
+    newDispatch({
+      type: 'CART_ADD_ITEM',
+      payload: { ...item, quantity },
+    });
+  };
+
+  const handleRemove = (item) => {
+    newDispatch({
+      type: 'CART_DELETE',
+      payload: item,
+    });
+  };
+
+  const checkoutHandle = () => {
+    navigate('/signin?redirect=/shipping');
+  };
+
+  const getPrice = (price, quantity) => {
+    const sum = price * quantity;
+    total += sum;
+    return sum;
+  };
   return (
     <>
       <Helmet>
@@ -25,6 +55,7 @@ const Cart = () => {
             </MessageBox>
           ) : (
             <ListGroup>
+              {console.log('data: ', CartItems)}
               {CartItems.map((data) => (
                 <ListGroup.Item key={data.index}>
                   <Row className="align-items-center">
@@ -37,22 +68,37 @@ const Cart = () => {
                       <Link to={`/product/${data.slug}`}>{data.name}</Link>
                     </Col>
                     <Col md={3}>
-                      <Button variant="light" disabled={data.quantity === 1}>
-                        {' '}
+                      <Button
+                        onClick={() => {
+                          countfun(data, data.quantity - 1);
+                        }}
+                        variant="outline-dark"
+                        disabled={data.quantity === 1}
+                      >
                         -{' '}
                       </Button>{' '}
                       <span>{data.quantity}</span>{' '}
                       <Button
-                        variant="light"
-                        disabled={data.quantity === data.countInStock}
+                        onClick={() => {
+                          countfun(data, data.quantity + 1);
+                        }}
+                        variant="outline-dark"
+                        // disabled={data.quantity === data.countInStock}
                       >
                         {' '}
-                        +{' '}
+                        +
                       </Button>
                     </Col>
-                    <Col md={2}>${data.price}</Col>
+                    <Col md={2}>${getPrice(data.price, data.quantity)}</Col>
                     <Col md={3}>
-                      <Button variant="danger">Delete</Button>
+                      <Button
+                        onClick={() => {
+                          handleRemove(data);
+                        }}
+                        variant="danger"
+                      >
+                        Delete
+                      </Button>
                     </Col>
                   </Row>
                 </ListGroup.Item>
@@ -67,12 +113,13 @@ const Cart = () => {
                 <ListGroup.Item>
                   <h4>
                     SubTotal ({CartItems.reduce((a, c) => a + c.quantity, 0)}):
-                    $({CartItems.reduce((a, c) => a + c.price, 0)})
+                    ${total}
                   </h4>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <div className="d-grid">
                     <Button
+                      onClick={checkoutHandle}
                       variant="warning"
                       type="button"
                       disabled={CartItems.quantity === 0}

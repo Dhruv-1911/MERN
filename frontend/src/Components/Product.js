@@ -3,13 +3,25 @@ import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Rating from '../Components/Rating';
 import { Store } from '../Store';
+import axios from 'axios';
 
 const Product = ({ product }) => {
-  const { state, dispatch } = useContext(Store);
-  const handelCart = (e) => {
-    dispatch({
+  const { state, dispatch: newDispatch } = useContext(Store);
+  const {
+    cart: { CartItems },
+  } = state;
+
+  const handelCart = async () => {
+    const exists = CartItems.find((x) => x._id === product._id);
+    const quantity = exists ? (exists.quantity += 1) : 1;
+    const { data } = await axios.get(`/api/product/${product._id}`);
+    if (data.countInStock < quantity) {
+      window.alert('Sorry, This Product is out of stock');
+      return;
+    }
+    newDispatch({
       type: 'CART_ADD_ITEM',
-      payload: { ...product, quantity: 1 },
+      payload: { ...product, quantity },
     });
   };
 
@@ -24,14 +36,20 @@ const Product = ({ product }) => {
         </Link>
         <Card.Text className="m-0">${product.price}</Card.Text>
         <Rating rating={product.rating} numReview={product.numReviews}></Rating>
-        {product.countInStock > 0 ? (
-          <Button onClick={handelCart} variant="warning" className="mt-2">
+        {product.countInStock !== 0 ? (
+          <Button
+            onClick={() => {
+              handelCart();
+            }}
+            variant="warning"
+            className="mt-2"
+          >
             Add to Cart
           </Button>
         ) : (
-          <div className="mt-2 p-2" variant="light">
+          <Button variant="light" disabled className="mt-2">
             Out Of Stock
-          </div>
+          </Button>
         )}
       </Card.Body>
     </Card>
