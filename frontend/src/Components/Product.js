@@ -5,8 +5,7 @@ import Rating from '../Components/Rating';
 import { Store } from '../Store';
 
 const Product = ({ product }) => {
-  
-  const { state , dispatch } = useContext(Store);
+  const { state, dispatch } = useContext(Store);
   const handelCart = (e) => {
     dispatch({
       type: 'CART_ADD_ITEM',

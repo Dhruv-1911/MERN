@@ -13,7 +13,9 @@ main{
 .image-smaller{
   width: 40%;
 }
-
+.image-fluid{
+  height: 10vh;
+}
 .products{
   display: flex;
   flex-wrap: wrap;

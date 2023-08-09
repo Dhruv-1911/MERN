@@ -4,7 +4,7 @@ import { Row, Col } from 'react-bootstrap';
 import Product from '../Components/Product';
 import { Helmet } from 'react-helmet-async';
 import Loadingbox from '../Components/Loadingbox';
-import MessageBox from '../Components/MessageBox';
+import MessageBox from '../Components/MessageBox';  
 
 const reducer = (state, action) => {
   switch (action.type) {
