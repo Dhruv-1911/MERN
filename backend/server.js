@@ -3,31 +3,15 @@ import data from './data.js';
 import cors from 'cors';
 import connect_db from './DB/connect.js';
 import dotenv from "dotenv"
+import seedrouter from "./routes/seedrouter.js"
+import productrouter from "./routes/productrouter.js"
 
 const app = express();
 app.use(cors());
 dotenv.config();
 
-app.get('/api/product', (req, res) => {
-  res.json(data.product);
-});
-
-app.get('/api/product/slug/:slug', (req, res) => {
-  const product = data.product.find((x) => x.slug === req.params.slug);
-  if (product) {
-    res.json(product);
-  } else {
-    res.status(404).send({ message: 'Not Found Product' });
-  }
-});
-app.get('/api/product/:id', (req, res) => {
-  const product = data.product.find((x) => x._id === req.params.id);
-  if (product) {
-    res.json(product);
-  } else {
-    res.status(404).send({ message: 'Not Found Product' });
-  }
-});
+app.use("/api/seed",seedrouter);
+app.use("/api/product",productrouter);
 
 const PORT = process.env.PORT;
 const start =async ()=>{

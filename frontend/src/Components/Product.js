@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Rating from '../Components/Rating';
@@ -6,6 +6,7 @@ import { Store } from '../Store';
 import axios from 'axios';
 
 const Product = ({ product }) => {
+  const [disable, setdisable] = useState(false)
   const { state, dispatch: newDispatch } = useContext(Store);
   const {
     cart: { CartItems },
@@ -17,6 +18,7 @@ const Product = ({ product }) => {
     const { data } = await axios.get(`/api/product/${product._id}`);
     if (data.countInStock < quantity) {
       window.alert('Sorry, This Product is out of stock');
+      setdisable(true)
       return;
     }
     newDispatch({
@@ -36,7 +38,7 @@ const Product = ({ product }) => {
         </Link>
         <Card.Text className="m-0">${product.price}</Card.Text>
         <Rating rating={product.rating} numReview={product.numReviews}></Rating>
-        {product.countInStock !== 0 ? (
+        {!disable ? (
           <Button
             onClick={() => {
               handelCart();

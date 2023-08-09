@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
-import { Link, redirect, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Signin = () => {
   const { search } = useLocation();

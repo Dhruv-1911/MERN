@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useReducer } from 'react';
+import React, { useContext, useEffect, useReducer, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Row, Col, ListGroup, Card, Badge, Button } from 'react-bootstrap';
@@ -22,6 +22,7 @@ const reducer = (state, action) => {
   }
 };
 const Product = () => {
+  const [disable , setdisable] = useState(false)
   const navigate = useNavigate();
   const params = useParams();
   const { slug } = params;
@@ -51,6 +52,7 @@ const Product = () => {
     const { data } = await axios.get(`/api/product/${product._id}`);
     if (data.countInStock < quantity) {
       window.alert('Sorry, This Product is out of stock');
+      setdisable(true)
       return;
     }
     newDispatch({
@@ -127,7 +129,7 @@ const Product = () => {
                         </Col>
                       </Row>
                     </ListGroup.Item>
-                    {product.countInStock !== 0 ? (
+                    {!disable ? (
                       <ListGroup.Item>
                         <div className="d-grid">
                           <Button onClick={handelCart} variant="warning">
