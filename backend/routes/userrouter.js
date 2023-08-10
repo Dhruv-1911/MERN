@@ -13,13 +13,14 @@ router.post(
       if (bcrypt.compareSync(req.body.password, user.password)) {
        return res.send({
           id: user._id,
+          name:user.name,
           email: user.email,
           isAdmin: user.isAdmin,
           token: generatetoken(user),
         });
       }
     }
-   return res.status(404).json({ message: 'Please. Enter Valid Email' });
+   return res.status(401).json({ message: 'Please! Enter Valid Email or Password' });
   })
 );
 

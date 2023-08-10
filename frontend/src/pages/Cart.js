@@ -55,11 +55,10 @@ const Cart = () => {
             </MessageBox>
           ) : (
             <ListGroup>
-              {console.log('data: ', CartItems)}
               {CartItems.map((data) => (
-                <ListGroup.Item key={data.index}>
+                <ListGroup.Item >
                   <Row className="align-items-center">
-                    <Col md={4}>
+                    <Col md={4} key={data.index}  >
                       <img
                         className="image-fluid rounded"
                         src={data.image}
