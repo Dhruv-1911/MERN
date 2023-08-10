@@ -56,9 +56,9 @@ const Cart = () => {
           ) : (
             <ListGroup>
               {CartItems.map((data) => (
-                <ListGroup.Item >
+                <ListGroup.Item  key={data.index} >
                   <Row className="align-items-center">
-                    <Col md={4} key={data.index}  >
+                    <Col md={4}  >
                       <img
                         className="image-fluid rounded"
                         src={data.image}
@@ -106,7 +106,7 @@ const Cart = () => {
           )}
         </Col>
         <Col md={4}>
-          <Card>
+          <Card >
             <Card.Body>
               <ListGroup variant="flush">
                 <ListGroup.Item>

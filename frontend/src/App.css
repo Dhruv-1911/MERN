@@ -66,3 +66,12 @@ main {
 .productInfo {
   padding: 10px;
 }
+
+.CheckOut > div {
+  border-bottom: 5px solid #a0a0a0;
+  color: #a0a0a0;
+}
+.CheckOut > div.active {
+  border-bottom: 5px solid #f08000;
+  color: #f08000;
+}
