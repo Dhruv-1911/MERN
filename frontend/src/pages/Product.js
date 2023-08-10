@@ -22,7 +22,7 @@ const reducer = (state, action) => {
   }
 };
 const Product = () => {
-  const [disable , setdisable] = useState(false)
+  const [disable, setdisable] = useState(false);
   const navigate = useNavigate();
   const params = useParams();
   const { slug } = params;
@@ -52,7 +52,7 @@ const Product = () => {
     const { data } = await axios.get(`/api/product/${product._id}`);
     if (data.countInStock < quantity) {
       window.alert('Sorry, This Product is out of stock');
-      setdisable(true)
+      setdisable(true);
       return;
     }
     newDispatch({
@@ -134,7 +134,7 @@ const Product = () => {
                         <div className="d-grid">
                           <Button onClick={handelCart} variant="warning">
                             ADD TO CART
-                          </Button> 
+                          </Button>
                         </div>
                       </ListGroup.Item>
                     ) : (
