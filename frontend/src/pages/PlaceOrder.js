@@ -108,7 +108,7 @@ const PlaceOrder = () => {
             <Card.Body>
               <Card.Title>Payment</Card.Title>
               <Card.Text>
-                <b>Payment: </b>
+                <b>Method: </b>
                 {cart.paymentMethod}
               </Card.Text>
               <Link to={'/payment'}>Edit</Link>

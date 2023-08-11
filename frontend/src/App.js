@@ -1,14 +1,8 @@
 import './App.css';
-import { Route, BrowserRouter as Router, Routes} from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Product from './pages/Product';
-import {
-  Navbar,
-  Container,
-  Nav,
-  Badge,
-  NavDropdown,
-} from 'react-bootstrap';
+import { Navbar, Container, Nav, Badge, NavDropdown } from 'react-bootstrap';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -20,6 +14,7 @@ import Shipping from './pages/Shipping';
 import Payment from './pages/payment';
 import Signup from './pages/Signup';
 import PlaceOrder from './pages/PlaceOrder';
+import Order from './pages/Order';
 
 function App() {
   const { state, dispatch: newDispatch } = useContext(Store);
@@ -32,6 +27,7 @@ function App() {
     localStorage.removeItem('CartItem');
     localStorage.removeItem('paymentMethod');
   };
+  const Year = new Date().getFullYear()
   return (
     <Router>
       <div className="d-flex flex-column main">
@@ -62,7 +58,7 @@ function App() {
                       <NavDropdown.Divider />
                       <NavDropdown.Item
                         className="signout-link"
-                        href="/signout" 
+                        href="/signout"
                         onClick={signoutHandler}
                       >
                         Sign Out
@@ -89,11 +85,12 @@ function App() {
               <Route path="/payment" element={<Payment />}></Route>
               <Route path="/placeorder" element={<PlaceOrder />}></Route>
               <Route path="/product/:slug" element={<Product />}></Route>
+              <Route path="/order/:id" element={<Order />}></Route>
             </Routes>
           </Container>
         </main>
         <footer>
-          <div className="text-center">© 2023 Copyright:dhruvkakadiya🙂</div>
+          <div className="text-center">© {Year} Copyright:dhruvkakadiya🙂</div>
         </footer>
       </div>
     </Router>

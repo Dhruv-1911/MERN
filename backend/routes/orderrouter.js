@@ -17,9 +17,22 @@ router.post(
       TaxPrice: req.body.TaxPrice,
       totalPrice: req.body.totalPrice,
       user: req.user._id,
-    })
+    });
     const order = await Neworder.save();
     res.status(201).json({ message: 'New Order Created', order });
+  })
+);
+router.get(
+  '/:id',
+  isAuth,
+  asyncHandler(async (req, res) => {
+    const order = await Order.findById(req.params.id)
+    if(order){
+      res.status(201).send(order)
+    }
+    else{
+      res.status(404).json({message:"Order Not Found"})
+    }
   })
 );
 export default router;
