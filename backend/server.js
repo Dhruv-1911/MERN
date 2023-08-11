@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import seedrouter from './routes/seedrouter.js';
 import productrouter from './routes/productrouter.js';
 import userrouter from './routes/userrouter.js';
+import orderrouter from './routes/orderrouter.js';
 import bodyParser from 'body-parser';
 
 const app = express();
@@ -17,9 +18,11 @@ dotenv.config();
 app.use('/api/seed', seedrouter);
 app.use('/api/product', productrouter);
 app.use('/api/user', userrouter);
+app.use('/api/order', orderrouter);
 
 
 app.use((err, req, res, next) => {
+  console.log('err: ', err);
   return res.status(500).json({ message: err.message });
 });
 

@@ -1,14 +1,34 @@
-import React, { useContext, useEffect } from 'react';
-import { Button, Card, Col, Container, ListGroup, Row } from 'react-bootstrap';
+import React, { useContext, useEffect, useReducer } from 'react';
+import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import { Helmet } from 'react-helmet-async';
 import CheckoutStep from '../Components/CheckoutStep';
 import { Store } from '../Store';
 import { Link, useNavigate } from 'react-router-dom';
+import utils from '../utils';
+import axios from 'axios';
+import Loadingbox from '../Components/Loadingbox';
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'CREATE_REQUEST':
+      return { ...state, loading: true };
+    case 'CREATE_SUCCESS':
+      return { ...state, loading: false };
+    case 'CREATE_FAIL':
+      return { ...state, loading: false };
+    default:
+      return state;
+  }
+};
 const PlaceOrder = () => {
   const navigate = useNavigate();
+
+  const [{ loading }, dispatch] = useReducer(reducer, {
+    loading: false,
+  });
   const { state, dispatch: newDispatch } = useContext(Store);
-  const { cart } = state;
+  const { cart, userInfo } = state;
 
   const round1 = (num) => Math.round(num * 100 + Number.EPSILON) / 100;
 
@@ -20,7 +40,39 @@ const PlaceOrder = () => {
   cart.TaxPrice = round1(0.15 * cart.ItemPrice);
   cart.totalPrice = cart.ItemPrice + cart.ShippingPrice + cart.TaxPrice;
 
-  const handlesubmit = () => {};
+  const handlesubmit = async () => {
+    try {
+      dispatch({ type: 'CREATE_REQUEST' });
+      
+      console.log('cart.CartItems: ', cart.CartItems);
+      const { data } = await axios.post(
+        '/api/order',
+        {
+          orderItem: cart.CartItems,
+          shippingAddress: cart.shippingAddress,
+          paymentMethod: cart.paymentMethod,
+          ItemPrice: cart.ItemPrice,
+          ShippingPrice: cart.ShippingPrice,
+          TaxPrice: cart.TaxPrice,
+          totalPrice: cart.totalPrice,
+        },
+        {
+          headers: {
+            authorization: `Bearer ${userInfo.token}`,
+          },
+        }
+        );
+        console.log('data: ', data);
+      newDispatch({ type: 'CART_CLEAR' });
+      dispatch({ type: 'CREATE_SUCCESS' });
+      localStorage.removeItem('CartItem');
+      navigate(`/order/${data.order._id}`);
+
+    } catch (error) {
+      dispatch({ type: 'CREATE_FAIL' });
+      toast.error(utils(error));
+    }
+  };
 
   useEffect(() => {
     if (!cart.paymentMethod) {
@@ -67,7 +119,7 @@ const PlaceOrder = () => {
               <Card.Title>Items</Card.Title>
               <ListGroup variant="flush">
                 {cart.CartItems.map((item) => (
-                  <ListGroup.Item key={item.index}>
+                  <ListGroup.Item key={item._id}>
                     <Row className="align-items-center">
                       <Col md={6}>
                         <img
@@ -127,12 +179,13 @@ const PlaceOrder = () => {
                     <Button
                       type="button"
                       variant="warning"
-                      onSubmit={handlesubmit}
+                      onClick={handlesubmit}
                       disabled={cart.CartItems.length === 0}
                     >
                       Place Order
                     </Button>
                   </div>
+                  {loading && <Loadingbox></Loadingbox>}
                 </ListGroup.Item>
               </ListGroup>
             </Card.Body>

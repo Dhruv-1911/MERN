@@ -1,6 +1,6 @@
 import  Jwt  from "jsonwebtoken";
 
-const generatetoken =  (user) => {
+export const generatetoken =  (user) => {
     return Jwt.sign(
         {
           _id: user._id,
@@ -14,6 +14,31 @@ const generatetoken =  (user) => {
         }
       );
   };
+
+  export const isAuth = (req,res,next) =>{
+    const authorization = req.headers.authorization
+
+    if(authorization){
+      const token =authorization.split(" ")[1];
+      Jwt.verify(
+        token, 
+        process.env.JWT_SECRET,
+        (err,decode)=>{
+          if(err){
+            console.log(err);
+            res.status(401).json({message:"Invalid Token"})
+          }
+          else{
+            req.user = decode
+            next();
+          }
+        }
+      )
+    }
+    else{
+      res.status(404).json({message:"Token Not Found"})
+    }
+  }
   
-  export default generatetoken;
+
   
