@@ -29,6 +29,7 @@ function App() {
     localStorage.removeItem('userData');
     localStorage.removeItem('shippingAddress');
     localStorage.removeItem('CartItem');
+    localStorage.removeItem('paymentMethod');
   };
   return (
     <Router>
