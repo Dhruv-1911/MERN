@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes} from 'react-router-dom';
 import Home from './pages/Home';
 import Product from './pages/Product';
 import {
@@ -18,6 +18,7 @@ import Cart from './pages/Cart';
 import Signin from './pages/Signin';
 import Shipping from './pages/Shipping';
 import Payment from './pages/payment';
+import Signup from './pages/Signup';
 
 function App() {
   const { state, dispatch: newDispatch } = useContext(Store);
@@ -81,6 +82,7 @@ function App() {
               <Route path="/" element={<Home />}></Route>
               <Route path="/cart" element={<Cart />}></Route>
               <Route path="/signin" element={<Signin />}></Route>
+              <Route path="/signup" element={<Signup />}></Route>
               <Route path="/shipping" element={<Shipping />}></Route>
               <Route path="/payment" element={<Payment />}></Route>
               <Route path="/product/:slug" element={<Product />}></Route>
