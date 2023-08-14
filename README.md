@@ -150,3 +150,8 @@
    - render paypal button
    - implement onApprove payment function
    - create pay order api in backend
+
+31. Display Order History
+   - create order screen
+   - create order history api
+   - use api in the frontend

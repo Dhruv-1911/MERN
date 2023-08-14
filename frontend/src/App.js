@@ -15,6 +15,7 @@ import Payment from './pages/payment';
 import Signup from './pages/Signup';
 import PlaceOrder from './pages/PlaceOrder';
 import Order from './pages/Order';
+import OrderHistory from './pages/OrderHistory';
 
 function App() {
   const { state, dispatch: newDispatch } = useContext(Store);
@@ -38,7 +39,7 @@ function App() {
               <Navbar.Brand href="/">Store</Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="me-auto">
+                <Nav className="me-auto w-100 justify-content-end">
                   <Nav.Link href="/cart">
                     Cart
                     {cart.CartItems.length > 0 && (
@@ -85,6 +86,7 @@ function App() {
               <Route path="/payment" element={<Payment />}></Route>
               <Route path="/placeorder" element={<PlaceOrder />}></Route>
               <Route path="/product/:slug" element={<Product />}></Route>
+              <Route path="/orderhistory" element={<OrderHistory />}></Route>
               <Route path="/order/:id" element={<Order />}></Route>
             </Routes>
           </Container>

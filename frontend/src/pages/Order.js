@@ -129,7 +129,6 @@ const Order = () => {
   }, [order, orderId, navigate, userInfo, paypalDispatch, successPay]);
   return (
     <>
-      {}
       {loading ? (
         <Loadingbox />
       ) : error ? (
