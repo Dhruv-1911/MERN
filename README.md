@@ -139,3 +139,14 @@
    - create backend api for order/:id
    - fetch order api in frontend
    - show order information in 2 cloumns
+
+30. Pay Order By PayPal
+   - generate paypal client id
+   - create api to return client id
+   - install react-paypal-js
+   - use PayPalScriptProvider in index.js
+   - use usePayPalScriptReducer in Order Screen
+   - implement loadPaypalScript function
+   - render paypal button
+   - implement onApprove payment function
+   - create pay order api in backend

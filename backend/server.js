@@ -15,6 +15,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 dotenv.config();
 
+app.get("/api/key/paypal",(req,res)=>{
+  res.send(process.env.PAYPAL_CLIENT_ID || "sb")
+})
+
 app.use('/api/seed', seedrouter);
 app.use('/api/product', productrouter);
 app.use('/api/user', userrouter);
