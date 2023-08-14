@@ -1,7 +1,7 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import asyncHandler from 'express-async-handler';
-import {generatetoken} from '../utils.js';
+import { generatetoken, isAuth } from '../utils.js';
 import User from '../model/user.js';
 const router = express.Router();
 
@@ -25,6 +25,8 @@ router.post(
       .json({ message: 'Please! Enter Valid Email or Password' });
   })
 );
+
+
 router.post(
   '/signup',
   asyncHandler(async (req, res) => {
@@ -45,4 +47,37 @@ router.post(
     }
   })
 );
+
+router.put(
+  '/profile',
+  isAuth,
+  asyncHandler(async (req, res) => {
+    try {
+      const user = await User.findById(req.user._id);
+      if (user) {
+        user.name = req.body.name || user.name;
+        user.email = req.body.email || user.email;
+  
+        if (req.body.password) {
+          user.password = bcrypt.hashSync(req.body.password, 8);
+        }
+        const updateUser = await user.save();
+        return res.send({
+          _id: updateUser._id,
+          name: updateUser.name,
+          email: updateUser.email,
+          isAdmin: updateUser.isAdmin,
+          token: generatetoken(updateUser),
+        });
+      }
+      else{ 
+        res.status(404).send({ message: 'User Not Found' });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+   
+  })
+);
+
 export default router;

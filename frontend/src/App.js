@@ -16,6 +16,7 @@ import Signup from './pages/Signup';
 import PlaceOrder from './pages/PlaceOrder';
 import Order from './pages/Order';
 import OrderHistory from './pages/OrderHistory';
+import Profile from './pages/Profile';
 
 function App() {
   const { state, dispatch: newDispatch } = useContext(Store);
@@ -88,6 +89,7 @@ function App() {
               <Route path="/product/:slug" element={<Product />}></Route>
               <Route path="/orderhistory" element={<OrderHistory />}></Route>
               <Route path="/order/:id" element={<Order />}></Route>
+              <Route path="/profile" element={<Profile />}></Route>
             </Routes>
           </Container>
         </main>
