@@ -165,3 +165,8 @@
 33. Add Sidebar and Search Box
    - add sidebar
    - add search box
+
+34. Create Search Screen
+   - show filters
+   - create api for searching products
+   - display results

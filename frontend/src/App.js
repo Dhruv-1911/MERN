@@ -28,6 +28,7 @@ import { FaBars } from 'react-icons/fa';
 import utils from './utils';
 import axios from 'axios';
 import SearchbBox from './Components/SearchbBox';
+import SearchPage from './pages/SearchPage';
 
 function App() {
   const { state, dispatch: newDispatch } = useContext(Store);
@@ -142,6 +143,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />}></Route>
               <Route path="/cart" element={<Cart />}></Route>
+              <Route path="/search" element={<SearchPage />}></Route>
               <Route path="/signin" element={<Signin />}></Route>
               <Route path="/signup" element={<Signup />}></Route>
               <Route path="/shipping" element={<Shipping />}></Route>
