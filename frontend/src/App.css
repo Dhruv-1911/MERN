@@ -60,7 +60,7 @@ main {
 }
 
 .container {
-  width: 60%;
+  width: 100%;
 }
 
 .productInfo {
@@ -74,4 +74,30 @@ main {
 .CheckOut > div.active {
   border-bottom: 5px solid #f08000;
   color: #f08000;
+}
+
+/* side-bar */
+.active-container{
+  margin-left: 240px;
+}
+
+.navbar-brand{
+  font-weight: bold;
+}
+
+.side-navbar{
+  width: 240px;
+  height: 100%;
+  position: absolute;
+  left: -300px;
+  background-color: #1c1c1c;
+  transition: 0.5s;
+}
+
+.site-container{
+  transition: 0.5s;
+}
+
+.active-nav{
+  left: 0;
 }
