@@ -35,8 +35,9 @@
   },
   "devDependencies": {},
   "scripts": {
-    "build": "cd backend && npm install && cd ../frontend && npm install && npm run build",
-    "start": "node backend/server.js",
+    "dev": "concurrently \"npm start --prefix backend\" \"nm start --prefix frontend\"",
+    "build": "cd ./backend && npm install && cd ../frontend && npm install && npm run build",
+    "start": "node ./backend/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
