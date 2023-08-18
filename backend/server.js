@@ -1,4 +1,5 @@
 import express from 'express';
+import path from 'paths';
 import cors from 'cors';
 import connect_db from './DB/connect.js';
 import dotenv from 'dotenv';
@@ -15,15 +16,23 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 dotenv.config();
 
-app.get("/api/key/paypal",(req,res)=>{
-  res.send(process.env.PAYPAL_CLIENT_ID || "sb")
-})
+app.get('/api/key/paypal', (req, res) => {
+  res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
+});
 
 app.use('/api/seed', seedrouter);
 app.use('/api/product', productrouter);
 app.use('/api/user', userrouter);
 app.use('/api/order', orderrouter);
 
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname + 'frontend/build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(
+    express.static(path.join(__dirname + 'frontend/build/index.html'))
+  );
+});
 
 app.use((err, req, res, next) => {
   console.log('err: ', err);
