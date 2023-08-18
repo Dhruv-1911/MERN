@@ -19,7 +19,7 @@ const reducer = (state, action) => {
   }
 };
 
-const url =process.env.URL
+const url =process.env.url
 
 const Home = () => {
   const [{ loading, products, error }, dispatch] = useReducer(reducer, {

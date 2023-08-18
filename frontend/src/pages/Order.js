@@ -61,7 +61,7 @@ const Order = () => {
         return orderId;
       });
   };
-  const url =process.env.URL
+  const url =process.env.url
   const onApprove = (data, actions) => {
     console.log('call');
     return actions.order.capture().then(async (details) => {

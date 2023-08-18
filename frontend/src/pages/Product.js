@@ -21,7 +21,7 @@ const reducer = (state, action) => {
       return state;
   }
 };
-const url =process.env.URL
+const url =process.env.url
 const Product = () => {
   const [disable, setdisable] = useState(false);
   const navigate = useNavigate();
