@@ -5,6 +5,8 @@ import Product from '../Components/Product';
 import { Helmet } from 'react-helmet-async';
 import Loadingbox from '../Components/Loadingbox';
 import MessageBox from '../Components/MessageBox';  
+import dotenv from "dotenv"
+dotenv.config();
 
 const reducer = (state, action) => {
   switch (action.type) {
