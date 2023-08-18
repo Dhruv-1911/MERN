@@ -1,5 +1,4 @@
 import express from 'express';
-import path from 'path';
 import cors from 'cors';
 import connect_db from './DB/connect.js';
 import dotenv from 'dotenv';
@@ -24,15 +23,6 @@ app.use('/api/seed', seedrouter);
 app.use('/api/product', productrouter);
 app.use('/api/user', userrouter);
 app.use('/api/order', orderrouter);
-
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname , '/frontend/build')));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname , '/frontend/build/index.html'));
-});
-
-
 
 
 app.use((err, req, res, next) => {
