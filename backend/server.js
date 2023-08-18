@@ -26,11 +26,11 @@ app.use('/api/user', userrouter);
 app.use('/api/order', orderrouter);
 
 const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname + 'frontend/build')));
+app.use(express.static(path.join(__dirname + '/frontend/build')));
 
 app.get('*', (req, res) => {
   res.sendFile(
-    express.static(path.join(__dirname + 'frontend/build/index.html'))
+    express.static(path.join(__dirname + '/frontend/build/index.html'))
   );
 });
 
