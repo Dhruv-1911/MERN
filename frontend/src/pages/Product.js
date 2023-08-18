@@ -21,7 +21,7 @@ const reducer = (state, action) => {
       return state;
   }
 };
-const url = process.env.URL;
+const url = "https://mern-rhj0.onrender.com"
 const Product = () => {
   const [disable, setdisable] = useState(false);
   const navigate = useNavigate();
