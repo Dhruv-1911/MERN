@@ -19,7 +19,7 @@ const reducer = (state, action) => {
   }
 };
 
-const url =process.env.url
+const url =process.env.URL
 console.log('url: ', url);
 
 const Home = () => {
