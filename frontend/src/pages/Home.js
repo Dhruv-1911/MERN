@@ -19,6 +19,8 @@ const reducer = (state, action) => {
   }
 };
 
+const url = "https://mern-rhj0.onrender.com";
+
 const Home = () => {
   const [{ loading, products, error }, dispatch] = useReducer(reducer, {
     products: [],
@@ -30,7 +32,7 @@ const Home = () => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const result = await axios.get('/api/product');
+        const result = await axios.get(url + '/api/product');
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (error) {
         dispatch({ type: 'FETCH_FAIL', payload: error.message });
