@@ -12,7 +12,7 @@ const Product = ({ product }) => {
     cart: { CartItems },
   } = state;
 
-  const url =process.env.URL
+  const url = "https://mern-rhj0.onrender.com"
 
   const handelCart = async () => {
     const exists = CartItems.find((x) => x._id === product._id);

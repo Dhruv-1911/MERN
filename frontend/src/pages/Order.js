@@ -61,7 +61,7 @@ const Order = () => {
         return orderId;
       });
   };
-  const url =process.env.URL
+  const url = "https://mern-rhj0.onrender.com"
   const onApprove = (data, actions) => {
     console.log('call');
     return actions.order.capture().then(async (details) => {

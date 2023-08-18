@@ -45,7 +45,7 @@ function App() {
   const [Categories, setCategories] = useState([]);
   const Year = new Date().getFullYear();
 
-  const url =process.env.URL
+  const url = "https://mern-rhj0.onrender.com"
 
   useEffect(() => {
     const fetchdata = async () => {

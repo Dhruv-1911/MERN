@@ -39,7 +39,7 @@ const PlaceOrder = () => {
   cart.ShippingPrice = cart.ItemPrice > 100 ? round1(0) : round1(10);
   cart.TaxPrice = round1(0.15 * cart.ItemPrice);
   cart.totalPrice = cart.ItemPrice + cart.ShippingPrice + cart.TaxPrice;
-  const url =process.env.URL
+  const url = "https://mern-rhj0.onrender.com"
   const handlesubmit = async () => {
     try {
       dispatch({ type: 'CREATE_REQUEST' });

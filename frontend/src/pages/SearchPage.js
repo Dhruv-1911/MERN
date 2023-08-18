@@ -79,7 +79,7 @@ const SearchPage = () => {
       loading: true,
       error: '',
     });
-    const url =process.env.URL
+    const url = "https://mern-rhj0.onrender.com"
   useEffect(() => {
     const fetchdata = async () => {
       try {

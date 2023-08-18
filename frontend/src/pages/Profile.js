@@ -33,7 +33,7 @@ const Profile = () => {
   const [{ loadingUpdate }, dispatch] = useReducer(reducer, {
     loadingUpdate: false,
   });
-  const url =process.env.URL
+  const url = "https://mern-rhj0.onrender.com"
   const handlesubmit = async (e) => {
     try {
       e.preventDefault();

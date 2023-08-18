@@ -20,7 +20,7 @@ const Signup = () => {
 
   const { state, dispatch: newDispatch } = useContext(Store);
   const { userInfo } = state;
-  const url =process.env.URL
+  const url = "https://mern-rhj0.onrender.com"
   const handlesubmit = async (e) => {
       e.preventDefault();
     console.log('confirmpassword: ', confirmpassword);
