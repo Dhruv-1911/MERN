@@ -45,10 +45,12 @@ function App() {
   const [Categories, setCategories] = useState([]);
   const Year = new Date().getFullYear();
 
+  const url =process.env.URL
+
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const { data } = await axios.get('/api/product/categories');
+        const { data } = await axios.get(url +'/api/product/categories');
         setCategories(data);
       } catch (error) {
         toast.error(utils(error));

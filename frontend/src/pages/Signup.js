@@ -20,6 +20,7 @@ const Signup = () => {
 
   const { state, dispatch: newDispatch } = useContext(Store);
   const { userInfo } = state;
+  const url =process.env.URL
   const handlesubmit = async (e) => {
       e.preventDefault();
     console.log('confirmpassword: ', confirmpassword);
@@ -28,7 +29,7 @@ const Signup = () => {
       return toast.error('password does not same');
     }
     try {
-      const { data } = await axios.post('/api/user/signup', {
+      const { data } = await axios.post(url+'/api/user/signup', {
         name,
         email,
         password,

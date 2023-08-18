@@ -33,11 +33,11 @@ const Profile = () => {
   const [{ loadingUpdate }, dispatch] = useReducer(reducer, {
     loadingUpdate: false,
   });
-
+  const url =process.env.URL
   const handlesubmit = async (e) => {
     try {
       e.preventDefault();
-      const { data } = await axios.put(
+      const { data } = await axios.put(url+
         '/api/user/profile',
         {
           name,

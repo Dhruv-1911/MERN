@@ -6,6 +6,7 @@ import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
 import MessageBox from '../Components/MessageBox';
 import { Link, useNavigate } from 'react-router-dom';
 
+const url =process.env.URL
 const Cart = () => {
   let total = 0;
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const Cart = () => {
     cart: { CartItems },
   } = state;
   const countfun = async (item, quantity) => {
-    const { data } = await axios.get(`/api/product/${item._id}`);
+    const { data } = await axios.get(url + `/api/product/${item._id}`);
     if (data.countInStock < quantity) {
       window.alert('Sorry, This Product is out of stock');
       return;

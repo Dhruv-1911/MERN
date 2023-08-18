@@ -79,12 +79,12 @@ const SearchPage = () => {
       loading: true,
       error: '',
     });
-
+    const url =process.env.URL
   useEffect(() => {
     const fetchdata = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await axios.get(
+        const { data } = await axios.get(url+
           `/api/product/search?category=${category}&page=${page}&query=${query}&price=${price}&rating=${rating}&order=${order}`
         );
 
@@ -101,7 +101,7 @@ const SearchPage = () => {
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const { data } = await axios.get('/api/product/categories');
+        const { data } = await axios.get(url+'/api/product/categories');
         setCategories(data);
       } catch (error) {
         toast.error(utils(error));

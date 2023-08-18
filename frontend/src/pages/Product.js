@@ -21,6 +21,7 @@ const reducer = (state, action) => {
       return state;
   }
 };
+const url =process.env.URL
 const Product = () => {
   const [disable, setdisable] = useState(false);
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const Product = () => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const result = await axios.get(`/api/product/slug/${slug}`);
+        const result = await axios.get(url+`/api/product/slug/${slug}`);
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (error) {
         dispatch({ type: 'FETCH_FAIL', payload: utils(error) });
@@ -49,7 +50,7 @@ const Product = () => {
   const handelCart = async () => {
     const exists = cart.CartItems.find((x) => x._id === product._id);
     const quantity = exists ? (exists.quantity += 1) : 1;
-    const { data } = await axios.get(`/api/product/${product._id}`);
+    const { data } = await axios.get(url +`/api/product/${product._id}`);
     if (data.countInStock < quantity) {
       window.alert('Sorry, This Product is out of stock');
       setdisable(true);

@@ -15,14 +15,14 @@ const Signin = () => {
   const redirectUrl = new URLSearchParams(search).get('redirect');
   const redirect = redirectUrl ? redirectUrl : '/';
   console.log('redirect: ', redirect);
-  
+  const url =process.env.URL
   const { state, dispatch: newDispatch } = useContext(Store);
   const {userInfo} = state
   const navigate = useNavigate()
   const handlesubmit = async (e) => {
     try {
       e.preventDefault();
-      const { data } = await axios.post("/api/user/signin",{
+      const { data } = await axios.post(url+"/api/user/signin",{
         email,
         password
       })

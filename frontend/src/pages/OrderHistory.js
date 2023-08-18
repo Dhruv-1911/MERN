@@ -20,7 +20,7 @@ const reducer = (state, action) => {
       return state;
   }
 };
-
+const url =process.env.URL
 const OrderHistory = () => {
   const navigate = useNavigate();
 
@@ -35,7 +35,7 @@ const OrderHistory = () => {
     const fetchData = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await axios.get(`/api/order/mine`, {
+        const { data } = await axios.get(url +`/api/order/mine`, {
           headers: { authorization: `Bearer ${userInfo.token}` },
         });
 

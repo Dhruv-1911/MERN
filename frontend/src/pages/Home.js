@@ -19,7 +19,7 @@ const reducer = (state, action) => {
   }
 };
 
-const url = "https://mern-rhj0.onrender.com";
+const url =process.env.URL
 
 const Home = () => {
   const [{ loading, products, error }, dispatch] = useReducer(reducer, {

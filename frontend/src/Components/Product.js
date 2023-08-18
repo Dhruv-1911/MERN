@@ -12,10 +12,12 @@ const Product = ({ product }) => {
     cart: { CartItems },
   } = state;
 
+  const url =process.env.URL
+
   const handelCart = async () => {
     const exists = CartItems.find((x) => x._id === product._id);
     const quantity = exists ? (exists.quantity += 1) : 1;
-    const { data } = await axios.get(`/api/product/${product._id}`);
+    const { data } = await axios.get(url +`/api/product/${product._id}`);
     if (data.countInStock < quantity) {
       window.alert('Sorry, This Product is out of stock');
       setdisable(true)
