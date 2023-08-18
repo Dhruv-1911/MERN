@@ -20,7 +20,7 @@ const reducer = (state, action) => {
       return state;
   }
 };
-const url =process.env.url
+const url =process.env.URL
 const OrderHistory = () => {
   const navigate = useNavigate();
 

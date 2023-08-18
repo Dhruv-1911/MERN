@@ -6,7 +6,7 @@ import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
 import MessageBox from '../Components/MessageBox';
 import { Link, useNavigate } from 'react-router-dom';
 
-const url =process.env.url
+const url =process.env.URL
 const Cart = () => {
   let total = 0;
   const navigate = useNavigate();

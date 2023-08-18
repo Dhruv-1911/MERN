@@ -79,7 +79,7 @@ const SearchPage = () => {
       loading: true,
       error: '',
     });
-    const url =process.env.url
+    const url =process.env.URL
   useEffect(() => {
     const fetchdata = async () => {
       try {

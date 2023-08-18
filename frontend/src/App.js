@@ -45,7 +45,7 @@ function App() {
   const [Categories, setCategories] = useState([]);
   const Year = new Date().getFullYear();
 
-  const url =process.env.url
+  const url =process.env.URL
 
   useEffect(() => {
     const fetchdata = async () => {
