@@ -82,14 +82,14 @@ function App() {
               <Navbar.Collapse id="basic-navbar-nav">
                 <SearchbBox />
                 <Nav className="me-auto w-100 justify-content-end">
-                  <Nav.Link href="/cart">
+                  <Link to="/cart">
                     Cart
                     {cart.CartItems.length > 0 && (
                       <Badge bg="danger">
                         {cart.CartItems.reduce((a, c) => a + c.quantity, 0)}
                       </Badge>
                     )}
-                  </Nav.Link>
+                  </Link>
                   {userInfo ? (
                     <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
                       <LinkContainer to="/profile">
