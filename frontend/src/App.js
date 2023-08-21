@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Product from './pages/Product';
 import {
@@ -99,18 +99,18 @@ function App() {
                         <NavDropdown.Item>Order History</NavDropdown.Item>
                       </LinkContainer>
                       <NavDropdown.Divider />
-                      <NavDropdown.Item
+                      <Link
                         className="signout-link"
-                        href="/signout"
+                        to="#signout"
                         onClick={signoutHandler}
                       >
                         Sign Out
-                      </NavDropdown.Item>
+                      </Link>
                     </NavDropdown>
                   ) : (
-                    <Nav.Link href="/signin" className="signin-link">
+                    <Link to="/signin" className="signin-link">
                       Sigin in
-                    </Nav.Link>
+                    </Link>
                   )}
                 </Nav>
               </Navbar.Collapse>

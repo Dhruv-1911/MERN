@@ -74,7 +74,7 @@ const SearchPage = () => {
   const order = sp.get('order') || 'newest';
   const page = sp.get('page') || 'all';
 
-  const [{ loading, error, products, countproduct, pages }, dispatch] =
+  const [{ loading, error, products, countproduct }, dispatch] =
     useReducer(reducer, {
       loading: true,
       error: '',
