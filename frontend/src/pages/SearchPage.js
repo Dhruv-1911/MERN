@@ -121,7 +121,7 @@ const SearchPage = () => {
     const filterrating = filter.rating || rating;
     const sortrorder = filter.order || order;
 
-    return `search/category=${filtercategory}&query=${filterquery}&price=${filterprice}&rating=${filterrating}&order=${sortrorder}&page=${filterpage}`;
+    return `?category=${filtercategory}&query=${filterquery}&price=${filterprice}&rating=${filterrating}&order=${sortrorder}&page=${filterpage}`;
   };
   return (
     <div>
