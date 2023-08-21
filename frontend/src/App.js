@@ -102,7 +102,7 @@ function App() {
                       <NavDropdown.Divider />
                       <Link
                         className="signout-link"
-                        to="#signout"
+                        to="/signout"
                         onClick={signoutHandler}
                       >
                         Sign Out
