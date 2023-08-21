@@ -40,6 +40,7 @@ function App() {
     localStorage.removeItem('shippingAddress');
     localStorage.removeItem('CartItem');
     localStorage.removeItem('paymentMethod');
+    window.location.href="/signin"
   };
   const [SidebarOpen, setSidebarOpen] = useState(false);
   const [Categories, setCategories] = useState([]);
@@ -82,7 +83,7 @@ function App() {
               <Navbar.Collapse id="basic-navbar-nav">
                 <SearchbBox />
                 <Nav className="me-auto w-100 justify-content-end">
-                  <Link to="/cart">
+                  <Link className="link" to="/cart">
                     Cart
                     {cart.CartItems.length > 0 && (
                       <Badge bg="danger">
@@ -108,7 +109,7 @@ function App() {
                       </Link>
                     </NavDropdown>
                   ) : (
-                    <Link to="/signin" className="signin-link">
+                    <Link to="/signin" className="link">
                       Sigin in
                     </Link>
                   )}
