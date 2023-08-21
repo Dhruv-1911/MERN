@@ -20,7 +20,7 @@ const reducer = (state, action) => {
       return state;
   }
 };
-const url = "https://mern-rhj0.onrender.com"
+const url = 'https://mern-rhj0.onrender.com';
 const OrderHistory = () => {
   const navigate = useNavigate();
 
@@ -35,7 +35,7 @@ const OrderHistory = () => {
     const fetchData = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await axios.get(url +`/api/order/mine`, {
+        const { data } = await axios.get(url + `/api/order/mine`, {
           headers: { authorization: `Bearer ${userInfo.token}` },
         });
 
@@ -71,9 +71,9 @@ const OrderHistory = () => {
             </tr>
           </thead>
           <tbody>
-              {console.log('data: ', order.length)}
+            {console.log('data: ', order.length)}
             {order.map((data) => (
-                <tr key={data.id}>
+              <tr key={data.id}>
                 {console.log('data: ', data)}
                 <td>{data._id}</td>
                 <td>{data.createdAt.substring(0, 10)}</td>
@@ -87,7 +87,7 @@ const OrderHistory = () => {
                     type="button"
                     variant="light"
                     onClick={() => {
-                        navigate(`/order/${data._id}`);
+                      navigate(`/order/${data._id}`);
                     }}
                   >
                     Details

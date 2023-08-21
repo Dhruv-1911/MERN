@@ -9,10 +9,10 @@ const Payment = () => {
   const navigate = useNavigate();
   const { state, dispatch: newDispatch } = useContext(Store);
   const {
-    cart: {  shippingAddress , paymentMethod},
+    cart: { shippingAddress, paymentMethod },
   } = state;
   const [paymentMethodName, setPaymentMethodName] = useState(
-    paymentMethod || 'Paypal' 
+    paymentMethod || 'Paypal'
   );
 
   useEffect(() => {

@@ -74,18 +74,21 @@ const SearchPage = () => {
   const order = sp.get('order') || 'newest';
   const page = sp.get('page') || 'all';
 
-  const [{ loading, error, products, countproduct }, dispatch] =
-    useReducer(reducer, {
+  const [{ loading, error, products, countproduct }, dispatch] = useReducer(
+    reducer,
+    {
       loading: true,
       error: '',
-    });
-    const url = "https://mern-rhj0.onrender.com"
+    }
+  );
+  const url = 'https://mern-rhj0.onrender.com';
   useEffect(() => {
     const fetchdata = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await axios.get(url+
-          `/api/product/search?category=${category}&page=${page}&query=${query}&price=${price}&rating=${rating}&order=${order}`
+        const { data } = await axios.get(
+          url +
+            `/api/product/search?category=${category}&page=${page}&query=${query}&price=${price}&rating=${rating}&order=${order}`
         );
 
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
@@ -101,7 +104,7 @@ const SearchPage = () => {
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const { data } = await axios.get(url+'/api/product/categories');
+        const { data } = await axios.get(url + '/api/product/categories');
         setCategories(data);
       } catch (error) {
         toast.error(utils(error));

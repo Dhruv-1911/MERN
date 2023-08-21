@@ -4,7 +4,7 @@ import { Row, Col } from 'react-bootstrap';
 import Product from '../Components/Product';
 import { Helmet } from 'react-helmet-async';
 import Loadingbox from '../Components/Loadingbox';
-import MessageBox from '../Components/MessageBox';  
+import MessageBox from '../Components/MessageBox';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -19,7 +19,7 @@ const reducer = (state, action) => {
   }
 };
 
-const url = "https://mern-rhj0.onrender.com"
+const url = 'https://mern-rhj0.onrender.com';
 
 const Home = () => {
   const [{ loading, products, error }, dispatch] = useReducer(reducer, {

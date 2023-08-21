@@ -20,16 +20,15 @@ const Signup = () => {
 
   const { state, dispatch: newDispatch } = useContext(Store);
   const { userInfo } = state;
-  const url = "https://mern-rhj0.onrender.com"
+  const url = 'https://mern-rhj0.onrender.com';
   const handlesubmit = async (e) => {
-      e.preventDefault();
-    console.log('confirmpassword: ', confirmpassword);
-    console.log('password: ', password);
+    e.preventDefault();
+
     if (password !== confirmpassword) {
       return toast.error('password does not same');
     }
     try {
-      const { data } = await axios.post(url+'/api/user/signup', {
+      const { data } = await axios.post(url + '/api/user/signup', {
         name,
         email,
         password,

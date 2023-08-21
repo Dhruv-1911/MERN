@@ -33,12 +33,12 @@ const Profile = () => {
   const [{ loadingUpdate }, dispatch] = useReducer(reducer, {
     loadingUpdate: false,
   });
-  const url = "https://mern-rhj0.onrender.com"
+  const url = 'https://mern-rhj0.onrender.com';
   const handlesubmit = async (e) => {
     try {
       e.preventDefault();
-      const { data } = await axios.put(url+
-        '/api/user/profile',
+      const { data } = await axios.put(
+        url + '/api/user/profile',
         {
           name,
           email,
@@ -50,7 +50,7 @@ const Profile = () => {
       );
       dispatch({ type: 'UPDATE_SUCCESS' });
       newDispatch({ type: 'USER_SIGNIN', payload: data });
-      localStorage.setItem('userData',JSON.stringify(data))
+      localStorage.setItem('userData', JSON.stringify(data));
       toast.success('User Updated Successfully');
     } catch (error) {
       dispatch({ type: 'UPDATE_FAIL' });

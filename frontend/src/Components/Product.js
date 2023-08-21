@@ -6,21 +6,21 @@ import { Store } from '../Store';
 import axios from 'axios';
 
 const Product = ({ product }) => {
-  const [disable, setdisable] = useState(false)
+  const [disable, setdisable] = useState(false);
   const { state, dispatch: newDispatch } = useContext(Store);
   const {
     cart: { CartItems },
   } = state;
 
-  const url = "https://mern-rhj0.onrender.com"
+  const url = 'https://mern-rhj0.onrender.com';
 
   const handelCart = async () => {
     const exists = CartItems.find((x) => x._id === product._id);
     const quantity = exists ? (exists.quantity += 1) : 1;
-    const { data } = await axios.get(url +`/api/product/${product._id}`);
+    const { data } = await axios.get(url + `/api/product/${product._id}`);
     if (data.countInStock < quantity) {
       window.alert('Sorry, This Product is out of stock');
-      setdisable(true)
+      setdisable(true);
       return;
     }
     newDispatch({

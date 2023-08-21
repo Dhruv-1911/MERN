@@ -61,14 +61,14 @@ const Order = () => {
         return orderId;
       });
   };
-  const url = "https://mern-rhj0.onrender.com"
+  const url = 'https://mern-rhj0.onrender.com';
   const onApprove = (data, actions) => {
     console.log('call');
     return actions.order.capture().then(async (details) => {
       try {
         dispatch({ type: 'PAY_REQUEST' });
-        const { data } = await axios.put(url+
-          `/api/order/${order._id}/pay`,
+        const { data } = await axios.put(
+          url + `/api/order/${order._id}/pay`,
           details,
           {
             headers: { authorization: `Bearer ${userInfo.token}` },
@@ -92,7 +92,7 @@ const Order = () => {
     const fetchData = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await axios.get(url +`/api/order/${orderId}`, {
+        const { data } = await axios.get(url + `/api/order/${orderId}`, {
           headers: { authorization: `Bearer ${userInfo.token}` },
         });
 
@@ -112,7 +112,7 @@ const Order = () => {
       }
     } else {
       const loadPayPalScript = async () => {
-        const { data: clientId } = await axios.get(url+'/api/key/paypal ', {
+        const { data: clientId } = await axios.get(url + '/api/key/paypal ', {
           headers: { authorization: `Bearer ${userInfo.token}` },
         });
         paypalDispatch({

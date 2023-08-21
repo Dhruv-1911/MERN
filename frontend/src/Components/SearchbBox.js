@@ -23,9 +23,14 @@ const SearchbBox = () => {
           aria-describedby="button-search"
         ></FormControl>
       </InputGroup>
-        <Button className="mx-1" variant="warning" type="submit" id="button-search">
-          <FaSearch className="icon" />
-        </Button>
+      <Button
+        className="mx-1"
+        variant="warning"
+        type="submit"
+        id="button-search"
+      >
+        <FaSearch className="icon" />
+      </Button>
     </Form>
   );
 };

@@ -6,7 +6,7 @@ import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
 import MessageBox from '../Components/MessageBox';
 import { Link, useNavigate } from 'react-router-dom';
 
-const url = "https://mern-rhj0.onrender.com"
+const url = 'https://mern-rhj0.onrender.com';
 const Cart = () => {
   let total = 0;
   const navigate = useNavigate();
@@ -58,9 +58,9 @@ const Cart = () => {
           ) : (
             <ListGroup>
               {CartItems.map((data) => (
-                <ListGroup.Item  key={data.index} >
+                <ListGroup.Item key={data.index}>
                   <Row className="align-items-center">
-                    <Col md={4}  >
+                    <Col md={4}>
                       <img
                         className="image-fluid rounded"
                         src={data.image}
@@ -108,7 +108,7 @@ const Cart = () => {
           )}
         </Col>
         <Col md={4}>
-          <Card >
+          <Card>
             <Card.Body>
               <ListGroup variant="flush">
                 <ListGroup.Item>

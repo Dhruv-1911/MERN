@@ -39,14 +39,14 @@ const PlaceOrder = () => {
   cart.ShippingPrice = cart.ItemPrice > 100 ? round1(0) : round1(10);
   cart.TaxPrice = round1(0.15 * cart.ItemPrice);
   cart.totalPrice = cart.ItemPrice + cart.ShippingPrice + cart.TaxPrice;
-  const url = "https://mern-rhj0.onrender.com"
+  const url = 'https://mern-rhj0.onrender.com';
   const handlesubmit = async () => {
     try {
       dispatch({ type: 'CREATE_REQUEST' });
-      
+
       console.log('cart.CartItems: ', cart.CartItems);
-      const { data } = await axios.post(url+
-        '/api/order',
+      const { data } = await axios.post(
+        url + '/api/order',
         {
           orderItem: cart.CartItems,
           shippingAddress: cart.shippingAddress,
@@ -61,13 +61,12 @@ const PlaceOrder = () => {
             authorization: `Bearer ${userInfo.token}`,
           },
         }
-        );
-        console.log('data: ', data);
+      );
+      console.log('data: ', data);
       newDispatch({ type: 'CART_CLEAR' });
       dispatch({ type: 'CREATE_SUCCESS' });
       localStorage.removeItem('CartItem');
       navigate(`/order/${data.order._id}`);
-
     } catch (error) {
       dispatch({ type: 'CREATE_FAIL' });
       toast.error(utils(error));
