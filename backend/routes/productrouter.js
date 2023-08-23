@@ -127,15 +127,9 @@ const storage = multer.diskStorage({
     cb(null, './uploads');
   },
   filename: function (req, file, cb) {
-    console.log(
-      'file',
-      `${file.originalname.split('.')[0]}_${Date.now()}${path.extname(
-        file.originalname
-      )}`
-    );
     cb(
       null,
-      `${file.originalname.split('.')[0]}_${Date.now()}${path.extname(
+      `${file.originalname.split('.')[0]}${path.extname(
         file.originalname
       )}`
     );
@@ -158,26 +152,34 @@ router.post(
       });
 
       let fileUrl = path.resolve() + '/' + req.file.path;
-      const result = cloudinary.uploader.upload(fileUrl, {
-        public_id: req.file.originalname + new Date().getTime(),
-      });
-      const product = new Product({
-        name: req.body.name,
-        slug: req.body.slug,
-        image: req.file.path,
-        brand: req.body.brand,
-        category: req.body.category,
-        price: req.body.price,
-        countInStock: req.body.countInStock,
-        rating: req.body.rating,
-        numReviews: req.body.numReviews,
-        description: req.body.description,
-      });
+      const result = cloudinary.uploader
+        .upload(fileUrl, {
+          public_id: req.file.originalname.split('.')[0],
+        })
+        .then(async (data) => {
+          const product = new Product({
+            name: req.body.name,
+            slug: req.body.slug,
+            image: data.url,
+            brand: req.body.brand,
+            category: req.body.category,
+            price: req.body.price,
+            countInStock: req.body.countInStock,
+            rating: req.body.rating,
+            numReviews: req.body.numReviews,
+            description: req.body.description,
+          });
 
-      const products = await product.save();
+          const products = await product.save();
 
-      res.status(201).json({ message: 'product created', products });
-    } catch (error) {}
+          return res.status(201).json({ message: 'product created', products });
+        })
+        .catch((e) => {
+          return res.status(400).json({ message: e.message });
+        });
+    } catch (error) {
+      return res.status(500).json({message:error.message})
+    }
   })
 );
 
