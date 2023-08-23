@@ -2,17 +2,16 @@ import express from 'express';
 import Product from '../model/product.js';
 import asyncHandler from 'express-async-handler';
 import multer from 'multer';
-import {v2 as cloudinary} from 'cloudinary';
-import streamifier from "streamifier"
+import path from 'path';
+import { v2 as cloudinary } from 'cloudinary';
+import streamifier from 'streamifier';
 const router = express.Router();
 
 router.get('/', async (req, res) => {
   try {
     const product = await Product.find({});
     res.status(200).json(product);
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 });
 
 const PAGE_SIZE = 3;
@@ -128,6 +127,12 @@ const storage = multer.diskStorage({
     cb(null, './uploads');
   },
   filename: function (req, file, cb) {
+    console.log(
+      'file',
+      `${file.originalname.split('.')[0]}_${Date.now()}${path.extname(
+        file.originalname
+      )}`
+    );
     cb(
       null,
       `${file.originalname.split('.')[0]}_${Date.now()}${path.extname(
@@ -140,46 +145,39 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage,
   limit: { filesize: 1000000 * 10000 }, //10 gb file
-}).single('myfile');
+});
 router.post(
   '/',
-  upload,
+  upload.single('myfile'),
   asyncHandler(async (req, res) => {
-    cloudinary.config({
-      cloud_name: 'ddulwmfmb',
-      api_key: '745817617929836',
-      api_secret: 'ahL-5PKocvEjPuIEwsEuyS8NYkw',
-    });
-    const streamUpload = (req) => {
-      return new Promise((resolve, reject) => {
-        const stream = cloudinary.uploader.upload_stream((error, result) => {
-          if (result) {
-            resolve(result);
-          } else {
-            reject(error);
-          }
-        });
-        console.log(req.file("myfile"));
-        streamifier.createReadStream(req.file.buffer).pipe(stream);
+    try {
+      cloudinary.config({
+        cloud_name: 'ddulwmfmb',
+        api_key: '745817617929836',
+        api_secret: 'ahL-5PKocvEjPuIEwsEuyS8NYkw',
       });
-    };
-    const result = await streamUpload(req);
-    const product = new Product({
-      name: req.body.name,
-      slug: req.body.slug,
-      image: result,
-      brand: req.body.brand,
-      category: req.body.category,
-      price: req.body.price,
-      countInStock: req.body.countInStock,
-      rating: req.body.rating,
-      numReviews: req.body.numReviews,
-      description: req.body.description,
-    });
 
-    const products = await product.save();
+      let fileUrl = path.resolve() + '/' + req.file.path;
+      const result = cloudinary.uploader.upload(fileUrl, {
+        public_id: req.file.originalname + new Date().getTime(),
+      });
+      const product = new Product({
+        name: req.body.name,
+        slug: req.body.slug,
+        image: req.file.path,
+        brand: req.body.brand,
+        category: req.body.category,
+        price: req.body.price,
+        countInStock: req.body.countInStock,
+        rating: req.body.rating,
+        numReviews: req.body.numReviews,
+        description: req.body.description,
+      });
 
-    res.status(201).json({ message: 'product created', products });
+      const products = await product.save();
+
+      res.status(201).json({ message: 'product created', products });
+    } catch (error) {}
   })
 );
 

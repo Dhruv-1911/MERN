@@ -29,6 +29,7 @@ import utils from './utils';
 import axios from 'axios';
 import SearchbBox from './Components/SearchbBox';
 import SearchPage from './pages/SearchPage';
+import ProductAdd from './pages/ProductAdd';
 
 function App() {
   const { state, dispatch: newDispatch } = useContext(Store);
@@ -46,12 +47,12 @@ function App() {
   const [Categories, setCategories] = useState([]);
   const Year = new Date().getFullYear();
 
-  const url = "https://mern-rhj0.onrender.com"
+  const url = 'https://mern-rhj0.onrender.com';
 
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const { data } = await axios.get(url +'/api/product/categories');
+        const { data } = await axios.get(url + '/api/product/categories');
         setCategories(data);
       } catch (error) {
         toast.error(utils(error));
@@ -91,6 +92,7 @@ function App() {
                       </Badge>
                     )}
                   </Link>
+                  {console.log('userInfo: ', userInfo)}
                   {userInfo ? (
                     <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
                       <LinkContainer to="/profile">
@@ -112,6 +114,13 @@ function App() {
                     <Link to="/signin" className="link">
                       Sigin in
                     </Link>
+                  )}
+                  {userInfo && userInfo.isAdmin ? (
+                    <Link to="/product/add">
+                      <Button>Product Add</Button>
+                    </Link>
+                  ) : (
+                    ''
                   )}
                 </Nav>
               </Navbar.Collapse>
@@ -156,6 +165,7 @@ function App() {
               <Route path="/orderhistory" element={<OrderHistory />}></Route>
               <Route path="/order/:id" element={<Order />}></Route>
               <Route path="/profile" element={<Profile />}></Route>
+              <Route path="/product/add" element={<ProductAdd />}></Route>
             </Routes>
           </Container>
         </main>
