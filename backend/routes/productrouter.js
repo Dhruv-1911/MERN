@@ -3,6 +3,7 @@ import Product from '../model/product.js';
 import asyncHandler from 'express-async-handler';
 import multer from 'multer';
 import {v2 as cloudinary} from 'cloudinary';
+import streamifier from "streamifier"
 const router = express.Router();
 
 router.get('/', async (req, res) => {
