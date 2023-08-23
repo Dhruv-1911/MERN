@@ -141,7 +141,6 @@ const upload = multer({
   storage,
   limit: { filesize: 1000000 * 10000 }, //10 gb file
 }).single('myfile');
-
 router.post(
   '/',
   upload,
@@ -160,6 +159,7 @@ router.post(
             reject(error);
           }
         });
+        console.log(req.file("myfile"));
         streamifier.createReadStream(req.file.buffer).pipe(stream);
       });
     };
