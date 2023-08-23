@@ -2,6 +2,7 @@ import express from 'express';
 import Product from '../model/product.js';
 import asyncHandler from 'express-async-handler';
 import multer from 'multer';
+import {v2 as cloudinary} from 'cloudinary';
 const router = express.Router();
 
 router.get('/', async (req, res) => {
