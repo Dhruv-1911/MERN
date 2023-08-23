@@ -1,6 +1,7 @@
 import express from 'express';
 import Product from '../model/product.js';
 import asyncHandler from 'express-async-handler';
+import multer from 'multer';
 const router = express.Router();
 
 router.get('/', async (req, res) => {
@@ -119,5 +120,61 @@ router.get('/:id', async (req, res) => {
     res.status(404).send({ message: 'Not Found Product' });
   }
 });
+
+// const storage = multer.diskStorage({
+//   destination: function (req, res, cb) {
+//       cb(null, "./uploads")
+//   }, filename: function (req, file, cb) {
+
+//       cb(null, `${file.originalname.split(".")[0]}_${Date.now()}${path.extname(file.originalname)}`);
+//   }
+// });
+
+// const upload = multer({
+//   storage,
+//   limit: { filesize: 1000000 * 10000 } //10 gb file
+// }).single("myfile");
+
+router.post(
+  '/',
+  asyncHandler(async (req, res) => {
+    const product = new Product({
+      name: req.body.name,
+      slug: req.body.slug,
+      image: req.body.image,
+      brand: req.body.brand,
+      category: req.body.category,
+      price: req.body.price,
+      countInStock: req.body.countInStock,
+      rating: req.body.rating,
+      numReviews: req.body.numReviews,
+      description: req.body.description,
+    });
+
+    const products = await product.save();
+
+    res.status(201).json({ message: 'product created', products });
+  })
+);
+
+router.put(
+  '/:id',
+  asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const update = req.body;
+    const option = { new: true };
+    const result = await Product.findByIdAndUpdate(id, update, option);
+    res.status(201).json({ message: 'product update' });
+  })
+);
+
+router.delete(
+  '/:id',
+  asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const result = await Product.findByIdAndDelete(id);
+    res.status(201).json({ message: 'product delete' });
+  })
+);
 
 export default router;
