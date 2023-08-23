@@ -121,27 +121,51 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// const storage = multer.diskStorage({
-//   destination: function (req, res, cb) {
-//       cb(null, "./uploads")
-//   }, filename: function (req, file, cb) {
+const storage = multer.diskStorage({
+  destination: function (req, res, cb) {
+    cb(null, './uploads');
+  },
+  filename: function (req, file, cb) {
+    cb(
+      null,
+      `${file.originalname.split('.')[0]}_${Date.now()}${path.extname(
+        file.originalname
+      )}`
+    );
+  },
+});
 
-//       cb(null, `${file.originalname.split(".")[0]}_${Date.now()}${path.extname(file.originalname)}`);
-//   }
-// });
-
-// const upload = multer({
-//   storage,
-//   limit: { filesize: 1000000 * 10000 } //10 gb file
-// }).single("myfile");
+const upload = multer({
+  storage,
+  limit: { filesize: 1000000 * 10000 }, //10 gb file
+}).single('myfile');
 
 router.post(
   '/',
+  upload,
   asyncHandler(async (req, res) => {
+    cloudinary.config({
+      cloud_name: 'ddulwmfmb',
+      api_key: '745817617929836',
+      api_secret: 'ahL-5PKocvEjPuIEwsEuyS8NYkw',
+    });
+    const streamUpload = (req) => {
+      return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream((error, result) => {
+          if (result) {
+            resolve(result);
+          } else {
+            reject(error);
+          }
+        });
+        streamifier.createReadStream(req.file.buffer).pipe(stream);
+      });
+    };
+    const result = await streamUpload(req);
     const product = new Product({
       name: req.body.name,
       slug: req.body.slug,
-      image: req.body.image,
+      image: result,
       brand: req.body.brand,
       category: req.body.category,
       price: req.body.price,
