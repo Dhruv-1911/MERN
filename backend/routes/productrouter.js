@@ -174,10 +174,12 @@ router.post(
           return res.status(201).json({ message: 'product created', products });
         })
         .catch((e) => {
-          return res.status(400).json({ message: e.message });
+          console.log('e: ', e);
+          return res.status(400).json({ message: e});
         });
     } catch (error) {
-      return res.status(500).json({ message: error.message });
+      console.log('error: ', error);
+      return res.status(500).json({ message: error });
     }
   })
 );
