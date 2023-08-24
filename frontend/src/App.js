@@ -30,6 +30,7 @@ import axios from 'axios';
 import SearchbBox from './Components/SearchbBox';
 import SearchPage from './pages/SearchPage';
 import ProductAdd from './pages/ProductAdd';
+import Productlist from './pages/Productlist';
 
 function App() {
   const { state, dispatch: newDispatch } = useContext(Store);
@@ -116,9 +117,14 @@ function App() {
                     </Link>
                   )}
                   {userInfo && userInfo.isAdmin ? (
-                    <Link to="/product/add">
-                      <Button>Product Add</Button>
-                    </Link>
+                    <>
+                      <Link to="/product/add">
+                        <Button>Product Add</Button>
+                      </Link>
+                      <Link className="mx-3" to="/product/list">
+                        <Button>Product List</Button>
+                      </Link>
+                    </>
                   ) : (
                     ''
                   )}
@@ -166,6 +172,7 @@ function App() {
               <Route path="/order/:id" element={<Order />}></Route>
               <Route path="/profile" element={<Profile />}></Route>
               <Route path="/product/add" element={<ProductAdd />}></Route>
+              <Route path="/product/list" element={<Productlist />}></Route>
             </Routes>
           </Container>
         </main>

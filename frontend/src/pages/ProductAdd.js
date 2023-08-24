@@ -5,8 +5,9 @@ import Row from 'react-bootstrap/Row';
 import { toast } from 'react-toastify';
 import utils from '../utils';
 import axios from 'axios';
-import { useReducer, useState } from 'react';
+import { useContext, useEffect, useReducer, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Store } from '../Store';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -36,18 +37,26 @@ function ProductAdd() {
   const [numReviews, setNumReviews] = useState('');
   const [description, setDescription] = useState('');
 
+  const { state, dispatch: newDispatch } = useContext(Store);
+  const { userInfo } = state;
   const navigate = useNavigate();
   const [{ loading, product }, dispatch] = useReducer(reducer, {
     product: [],
     loading: true,
   });
 
+    useEffect(() => {
+      if (userInfo.isAdmin) {
+        navigate('/product/add');
+      }
+    }, [navigate, userInfo]);
+
   const handleSubmit = async (e) => {
     console.log('e: ', e);
     try {
       e.preventDefault();
       dispatch({ type: 'CREATE_REQUEST', loading: true });
-      const { data } = await axios.post(url + "/api/product" , {
+      const { data } = await axios.post(url + '/api/product', {
         name,
         slug,
         image,
