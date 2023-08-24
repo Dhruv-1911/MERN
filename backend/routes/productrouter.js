@@ -137,11 +137,11 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage,
   limit: { filesize: 1000000 * 10000 }, //10 gb file
-}).single('myfile')
+})
 
 router.post(
   '/',
-  upload,
+  upload.single("myfile"),
   asyncHandler(async (req, res) => {
     try {
       cloudinary.config({
