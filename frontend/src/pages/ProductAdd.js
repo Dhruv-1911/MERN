@@ -53,8 +53,8 @@ function ProductAdd() {
 
   const handleSubmit = async (e) => {
     console.log('e: ', e);
+    e.preventDefault();
     try {
-      e.preventDefault();
       dispatch({ type: 'CREATE_REQUEST', loading: true });
       const { data } = await axios.post(url + '/api/product', {
         name,
