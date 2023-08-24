@@ -150,8 +150,8 @@ router.post(
         api_secret: 'ahL-5PKocvEjPuIEwsEuyS8NYkw',
       });
 
-      let fileUrl = path.resolve() + '/' + req.file.path;
-      const result = cloudinary.uploader
+      let fileUrl = req.file.path;
+      const result = cloudinary.uploader  
         .upload(fileUrl, {
           public_id: req.file.originalname.split('.')[0],
         })
