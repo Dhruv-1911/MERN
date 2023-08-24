@@ -129,9 +129,7 @@ const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     cb(
       null,
-      `${file.originalname.split('.')[0]}${path.extname(
-        file.originalname
-      )}`
+      `${file.originalname.split('.')[0]}${path.extname(file.originalname)}`
     );
   },
 });
@@ -139,10 +137,11 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage,
   limit: { filesize: 1000000 * 10000 }, //10 gb file
-});
+}).single('myfile')
+
 router.post(
   '/',
-  upload.single('myfile'),
+  upload,
   asyncHandler(async (req, res) => {
     try {
       cloudinary.config({
@@ -178,7 +177,7 @@ router.post(
           return res.status(400).json({ message: e.message });
         });
     } catch (error) {
-      return res.status(500).json({message:error.message})
+      return res.status(500).json({ message: error.message });
     }
   })
 );
