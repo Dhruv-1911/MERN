@@ -12,5 +12,6 @@ router.get('/', async (req, res) => {
   const seeduser = await User.insertMany(data.user);
   res.send({ seedproduct , seeduser });
 });
+//add
 
 export default router;
